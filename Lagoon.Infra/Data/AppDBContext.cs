@@ -1,8 +1,12 @@
 using Lagoon.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace WhiteLagoon.Infra.Data;
+namespace Lagoon.Infra.Data;
 public class AppDBContext : DbContext 
 {
-     DbSet<Villa> villas {get;set;}
+  public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) 
+  {
+    
+  }
+  public DbSet<Villa> Villas {get;set;}
 }

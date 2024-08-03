@@ -112,7 +112,7 @@ docker ps
 # Below Command Run After SQL Container Runs (Keys are Case Insensitive & their alternatives are available)
 
 
-dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "server=localhost;Database=SB;User Id=sa;password=Asdf@1234;TrustServerCertificate=true"
+dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "server=localhost;Database=Lagoon;User Id=sa;password=Asdf@1234;TrustServerCertificate=true"
 # This Command won't work b/c of Certificate & Swagger (Run using f5)
 ```
 ### MIGRATION
