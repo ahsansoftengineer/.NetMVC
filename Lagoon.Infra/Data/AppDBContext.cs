@@ -1,12 +1,18 @@
 using Lagoon.Domain.Entity;
+using Lagoon.Infra.Seed;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lagoon.Infra.Data;
-public class AppDBContext : DbContext 
+public class AppDBContext : DbContext
 {
-  public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) 
-  {
-    
+  public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
+  { 
+
   }
-  public DbSet<Villa> Villas {get;set;}
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+    SeedData.Villa(modelBuilder);
+    base.OnModelCreating(modelBuilder);
+  }
+  public DbSet<Villa> Villas { get; set; }
 }

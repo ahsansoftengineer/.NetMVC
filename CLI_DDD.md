@@ -110,10 +110,6 @@ docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=A
 docker container ls
 docker ps
 # Below Command Run After SQL Container Runs (Keys are Case Insensitive & their alternatives are available)
-
-
-dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "server=localhost;Database=Lagoon;User Id=sa;password=Asdf@1234;TrustServerCertificate=true"
-# This Command won't work b/c of Certificate & Swagger (Run using f5)
 ```
 ### MIGRATION
 ```bash
@@ -122,6 +118,9 @@ dotnet tool list --global
 
 
 dotnet ef database add MigrationName --project Lagoon.Infra --startup-project Lagoon.Web --connection "SERVER=127.0.0.1,1433;DATABASE=SB;USER=sa;PASSWORD=Asdf@1234;Encrypt=false"
+# Run Migration
+dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "server=localhost;Database=Lagoon;User Id=sa;password=Asdf@1234;TrustServerCertificate=true"
+# This Command won't work b/c of Certificate & Swagger (Run using f5)
 
 # ADD
 dotnet ef migrations add InitialCreate -p Lagoon.Infra -s Lagoon.Web
@@ -141,3 +140,7 @@ curl -X 'POST' 'http://localhost:5294/auth/register' -H 'accept: */*' -H 'Conten
 curl -X 'POST' 'http://localhost:5294/auth/login' -H 'accept: */*' -H 'Content-Type: App/json' -d '{ "email": "string", "password": "string" }'
 curl -X 'GET' 'http://localhost:5294/Web/Dinners' -H 'accept: */*' -H 'Authorization: Bearer token.full.goeshere'
 ```
+
+30
+
+dotnet run --launch-profile https
