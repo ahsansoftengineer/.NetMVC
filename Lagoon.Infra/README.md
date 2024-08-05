@@ -29,12 +29,14 @@ dotnet tool install --global dotnet-ef -v 6.0.16
 Install-Package Microsoft.EntityFrameworkCore.Tools # Power Shell
 
 # ADD
-dotnet ef database add MigrationName --project Lagoon.Infra --startup-project Lagoon.Web --connection "SERVER=.;DATABASE=Lagoon;USER ID=sa;PASSWORD=Asdf@1234;Trusted_Connection=False;Encrypt=false; Integrated Security=False; MultipleActiveResultSets=true"
+# CONNECTION "Server=.;Database=Lagoon;User ID=sa;Password=Asdf@1234;Trusted_Connection=False;Encrypt=false;Integrated Security=False;"
+
+dotnet ef database add MigrationName --project Lagoon.Infra --startup-project Lagoon.Web --connection "..."
 dotnet ef migrations add NameOfMigration # When you have One DBContext and One Project
 dotnet ef migrations add NameOfMigration -p Lagoon.Infra -s Lagoon.Web --context DBCntx # When you have two or more Projects
 
 # UPDATE
-dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "..."
+dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "Server=.;Database=Lagoon;User ID=sa;Password=Asdf@1234;Trusted_Connection=False;Encrypt=false;Integrated Security=False;"
 
 # REMOVE
 dotnet ef migrations remove  -p Lagoon.Infra -s Lagoon.Web
