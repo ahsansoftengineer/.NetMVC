@@ -102,35 +102,6 @@ stream  https://gitlab.com/starbazaar/webapp.git (push)
 dotnet new editorconfig
 ```
 
-### DOCKER
-```bash
-docker pull mcr.microsoft.com/mssql/server:2022-latest
-docker image ls
-docker run -e 'HOMEBREW_NO_ENV_FILTERING=1' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Asdf@1234' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
-docker container ls
-docker ps
-# Below Command Run After SQL Container Runs (Keys are Case Insensitive & their alternatives are available)
-```
-### MIGRATION
-```bash
-dotnet tool install --global dotnet-ef
-dotnet tool list --global
-
-
-dotnet ef database add MigrationName --project Lagoon.Infra --startup-project Lagoon.Web --connection "SERVER=127.0.0.1,1433;DATABASE=SB;USER=sa;PASSWORD=Asdf@1234;Encrypt=false"
-# Run Migration
-dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "server=localhost;Database=Lagoon;User Id=sa;password=Asdf@1234;TrustServerCertificate=true"
-# This Command won't work b/c of Certificate & Swagger (Run using f5)
-
-# ADD
-dotnet ef migrations add InitialCreate -p Lagoon.Infra -s Lagoon.Web
-# REMOVE
-dotnet ef migrations remove  -p Lagoon.Infra -s Lagoon.Web
-# UPDATE
-dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "Server=localhost;Database=SB;User Id=sa;Password=Asdf@1234;Encrypt=false"
-# RUN
-dotnet run --project Lagoon.Web
-```
 ### CURL COMMAND
 - Undermentioned Commands only works with Bash
 - Before Using that you have to Stop Https Middleware

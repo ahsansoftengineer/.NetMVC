@@ -1,7 +1,31 @@
+
 @{
+  @* using Lagoon.Domain.Entity; *@
+  @model IEnumerable<Lagoon.Domain.Entity.Villa>
     @* ViewData["Title"] = "Home Page"; *@
 }
 
 <div class="text-center">
   <h1 class="display-4">Villa List</h1>
 </div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Sqft</th>
+      <th>Desc</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var obj in Model)
+    {
+      <tr>
+        <td>@obj.Name</td>
+        <td>@obj.Price</td>
+        <td>@obj.Sqft</td>
+        <td>@obj.Desc</td>
+      </tr>
+    }
+  </tbody>
+</table>
