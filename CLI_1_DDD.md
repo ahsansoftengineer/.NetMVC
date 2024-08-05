@@ -36,13 +36,7 @@ dotnet add ./Lagoon.Web/ reference ./Lagoon.Contracts/ ./Lagoon.App/ ./Lagoon.In
 dotnet add ./Lagoon.Infra/ reference ./Lagoon.App/ ./Lagoon.Domain/
 dotnet add ./Lagoon.App/ reference ./Lagoon.Domain/
 ```
-### RUNNING PROJECTS
-```bash
-dotnet run --launch-profile https # Inside Api / Web Project
-dotnet run --project ./Lagoon.Web/
-dotnet watch run --project ./Lagoon.Web/
 
-```
 #### USER SECRETS
 ```bash 
 dotnet user-secrets init --project ./Lagoon.Web/
@@ -66,5 +60,13 @@ origin  https://gitlab.com/m.ahsan.saifi/webapp.git (push)
 stream  https://gitlab.com/starbazaar/webapp.git (fetch)
 stream  https://gitlab.com/starbazaar/webapp.git (push)
 dotnet new editorconfig
+```
+
+### RUNNING PROJECTS
+```bash
+dotnet run # Inside Api / Web Project
+dotnet watch run --project ./Lagoon.Web/ --launch-profile https 
+dotnet run -p ./Lagoon.Web/
+
 ```
 
