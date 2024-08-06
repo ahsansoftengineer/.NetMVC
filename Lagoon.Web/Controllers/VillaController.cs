@@ -60,4 +60,26 @@ public class VillaController : Controller
      return View();
   }
 
+  public IActionResult Delete(int id)
+  {
+   Villa? obj = _db.Villas.FirstOrDefault(x => x.ID == id);
+   if(obj == null)
+   {
+      return RedirectToAction("Error", "Home");
+   }
+   return View(obj);
+  }
+  [HttpPost]
+  public IActionResult Delete(Villa obj)
+  {
+     Villa? objDB = _db.Villas.FirstOrDefault(x => x.ID == obj.ID);
+     if(objDB is not null)
+     {
+      _db.Villas.Remove(objDB);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+     }
+     return View();
+  }
+
 }
