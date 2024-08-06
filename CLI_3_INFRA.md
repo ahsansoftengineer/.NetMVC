@@ -28,11 +28,12 @@ dotnet tool list --global
 dotnet tool install --global dotnet-ef -v 6.0.16
 Install-Package Microsoft.EntityFrameworkCore.Tools # Power Shell
 
-# ADD
-# CONNECTION "Server=.;Database=Lagoon;User ID=sa;Password=Asdf@1234;Trusted_Connection=False;Encrypt=false;Integrated Security=False;"
+# ADD 
+# NOTE: --connection is not the part of add migrations
+dotnet ef migrations add Villa_Occupancy -p Lagoon.Infra -s Lagoon.Web
 
-dotnet ef database add MigrationName --project Lagoon.Infra --startup-project Lagoon.Web --connection "..."
-dotnet ef migrations add NameOfMigration # When you have One DBContext and One Project
+dotnet ef migrations add NameOfMigration 
+# When you have One DBContext and One Project
 dotnet ef migrations add NameOfMigration -p Lagoon.Infra -s Lagoon.Web --context DBCntx # When you have two or more Projects
 
 # UPDATE

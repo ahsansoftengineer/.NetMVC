@@ -24,7 +24,8 @@ dotnet add ./Lagoon.Infra/ package DynamicExpressions.NET
 dotnet add ./Lagoon.Infra/ package LinqKit.Core
 dotnet add ./Lagoon.Infra/ package Microsoft.EntityFrameworkCore 
 dotnet add ./Lagoon.Infra/ package Microsoft.EntityFrameworkCore.SqlServer
-# dotnet add ./Lagoon.Infra/ package Microsoft.EntityFrameworkCore.Design
+dotnet add ./Lagoon.Infra/ package Microsoft.EntityFrameworkCore.Design
+dotnet add ./Lagoon.Infra/ package Microsoft.EntityFrameworkCore.Tools
 dotnet add ./Lagoon.Infra/ package Microsoft.EntityFrameworkCore.DynamicLinq
 dotnet add ./Lagoon.Infra/ package Microsoft.AspNetCore.Authentication.JwtBearer
 dotnet add ./Lagoon.Infra/ package Microsoft.AspNetCore.Authentication.OpenIdConnect
