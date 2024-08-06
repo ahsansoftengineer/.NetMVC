@@ -37,7 +37,7 @@ dotnet ef migrations add NameOfMigration
 dotnet ef migrations add NameOfMigration -p Lagoon.Infra -s Lagoon.Web --context DBCntx # When you have two or more Projects
 
 # UPDATE
-dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "Server=.;Database=Lagoon;User ID=sa;Password=Asdf@1234;Trusted_Connection=False;Encrypt=false;Integrated Security=False;"
+dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "Server=.;Database=Lagoon;User Id=sa;Password=Asdf@1234;Trusted_Connection=True;Integrated Security=False;TrustServerCertificate=True;"
 
 # REMOVE
 dotnet ef migrations remove  -p Lagoon.Infra -s Lagoon.Web

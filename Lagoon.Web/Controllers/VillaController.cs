@@ -1,3 +1,4 @@
+using Lagoon.Domain.Entity;
 using Lagoon.Infra.Data;
 using Microsoft.AspNetCore.Mvc;
 namespace Lagoon.Web.Controllers;
@@ -16,5 +17,12 @@ public class VillaController : Controller
   public IActionResult Create() 
   {
    return View();
+  }
+  [HttpPost]
+  public IActionResult Create(Villa obj)
+  {
+     _db.Villas.Add(obj);
+     _db.SaveChanges();
+     return RedirectToAction("Index", "Villa");
   }
 }
