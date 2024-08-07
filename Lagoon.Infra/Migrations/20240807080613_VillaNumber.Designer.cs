@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lagoon.Infra.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240806065805_Villa_Occupancy")]
-    partial class Villa_Occupancy
+    [Migration("20240807080613_VillaNumber")]
+    partial class VillaNumber
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace Lagoon.Infra.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created_Date");
 
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
@@ -44,7 +45,8 @@ namespace Lagoon.Infra.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Occupancy")
                         .HasColumnType("int");
@@ -56,7 +58,8 @@ namespace Lagoon.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated_Date");
 
                     b.HasKey("ID");
 
@@ -93,6 +96,67 @@ namespace Lagoon.Infra.Migrations
                             Price = 200.0,
                             Sqft = 550
                         });
+                });
+
+            modelBuilder.Entity("Lagoon.Domain.Entity.VillaNumber", b =>
+                {
+                    b.Property<int>("Villa_Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecialDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VillaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Villa_Number");
+
+                    b.HasIndex("VillaId");
+
+                    b.ToTable("VillaNumber");
+
+                    b.HasData(
+                        new
+                        {
+                            Villa_Number = 101,
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            Villa_Number = 102,
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            Villa_Number = 103,
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            Villa_Number = 201,
+                            VillaId = 2
+                        },
+                        new
+                        {
+                            Villa_Number = 202,
+                            VillaId = 2
+                        },
+                        new
+                        {
+                            Villa_Number = 203,
+                            VillaId = 2
+                        });
+                });
+
+            modelBuilder.Entity("Lagoon.Domain.Entity.VillaNumber", b =>
+                {
+                    b.HasOne("Lagoon.Domain.Entity.Villa", "Villa")
+                        .WithMany()
+                        .HasForeignKey("VillaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Villa");
                 });
 #pragma warning restore 612, 618
         }

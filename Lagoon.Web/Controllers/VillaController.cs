@@ -29,6 +29,7 @@ public class VillaController : Controller
       { 
          _db.Villas.Add(obj);
          _db.SaveChanges();
+         TempData["success"] = "The Villa has been Created Successfully";
          return RedirectToAction("Index", "Villa");
       }
       if(obj.Name == obj.Desc)
@@ -37,6 +38,7 @@ public class VillaController : Controller
          
          ModelState.AddModelError("desc","The Desc can't exactly match the Name.");
       }
+      TempData["success"] = "The Villa could not be Created";
       return View();
   }
   public IActionResult Update(int id)
@@ -55,8 +57,10 @@ public class VillaController : Controller
      {
       _db.Villas.Update(obj);
       _db.SaveChanges();
+       TempData["success"] = "The Villa has been Updated Successfully";
       return RedirectToAction("Index");
      }
+     TempData["success"] = "The Villa could not be Updated";
      return View();
   }
 
@@ -77,8 +81,10 @@ public class VillaController : Controller
      {
       _db.Villas.Remove(objDB);
       _db.SaveChanges();
+      TempData["success"] = "The Villa has been Deleted Successfully";
       return RedirectToAction("Index");
      }
+           TempData["error"] = "The Villa could not be Deleted";
      return View();
   }
 

@@ -30,14 +30,14 @@ Install-Package Microsoft.EntityFrameworkCore.Tools # Power Shell
 
 # ADD 
 # NOTE: --connection is not the part of add migrations
-dotnet ef migrations add Villa_Occupancy -p Lagoon.Infra -s Lagoon.Web
-
 dotnet ef migrations add NameOfMigration 
-# When you have One DBContext and One Project
 dotnet ef migrations add NameOfMigration -p Lagoon.Infra -s Lagoon.Web --context DBCntx # When you have two or more Projects
 
+dotnet ef migrations add VillaNumber -p Lagoon.Infra -s Lagoon.Web
+
 # UPDATE
-dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "Server=.;Database=Lagoon;User Id=sa;Password=Asdf@1234;Trusted_Connection=True;Integrated Security=False;TrustServerCertificate=True;"
+dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "Server=.;Database=Lagoon;User Id=sa;Password=Asdf@1234;TrustServerCertificate=True;"
+# Trusted_Connection=True;Integrated Security=False;
 
 # REMOVE
 dotnet ef migrations remove  -p Lagoon.Infra -s Lagoon.Web
@@ -49,5 +49,8 @@ Add-Migration NameOfMigration -Context DatabaseContextName
 # Before Running the Below Command Ensure the Project is not Running Because DB In Use
 dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "..."
 dotnet run --project Lagoon.Web
+
+# DROPING DATABASE
+dotnet ef database drop --force  -p Lagoon.Infra -s Lagoon.Web 
 
 ```

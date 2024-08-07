@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lagoon.Domain.Entity;
 public class Villa 
@@ -15,6 +16,8 @@ public class Villa
   public int Occupancy {get; set;}
   [Display(Name="Image Url")]
   public string? ImageUrl {get; set;}
+  [Column("Created_Date")]
   public DateTime? CreatedDate {get; set;}
+  [Column("Updated_Date")]
   public DateTime? UpdatedDate {get; set;}
 }
