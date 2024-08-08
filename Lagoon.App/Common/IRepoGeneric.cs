@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Lagoon.App.Common.Interface;
+namespace Lagoon.App.Common;
 public interface IRepoGeneric<T>
 where T : class
 {

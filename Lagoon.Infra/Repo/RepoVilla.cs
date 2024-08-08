@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Lagoon.App.Common;
 using Lagoon.Domain.Entity;
-using Lagoon.Infra.Data;
+using Lagoon.Infra.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lagoon.Infra.Repo;
@@ -16,19 +16,14 @@ public class RepoVilla : IRepoVilla
   {
     _db.Villas.Add(entity);
   }
-
-
-
   public void Remove(Villa entity)
   {
     _db.Remove(entity);
   }
-
   public void Save()
   {
     _db.SaveChanges();
   }
-
   public void Update(Villa entity)
   {
     _db.Villas.Update(entity);
@@ -51,7 +46,6 @@ public class RepoVilla : IRepoVilla
     }
     return query.FirstOrDefault();
   }
-
   public IEnumerable<Villa> GetAll(Expression<Func<Villa, bool>>? filter = null, string? includes = null)
   {
     IQueryable<Villa> query = _db.Set<Villa>();

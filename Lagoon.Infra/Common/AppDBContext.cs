@@ -2,7 +2,7 @@ using Lagoon.Domain.Entity;
 using Lagoon.Infra.Seed;
 using Microsoft.EntityFrameworkCore;
 
-namespace Lagoon.Infra.Data;
+namespace Lagoon.Infra.Common;
 public class AppDBContext : DbContext
 {
   public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
