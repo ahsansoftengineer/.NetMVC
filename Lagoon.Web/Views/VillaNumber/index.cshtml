@@ -1,6 +1,6 @@
+@model IEnumerable<VillaNumber>
 @{
-  @model IEnumerable<Villa>
-  string Template = "Villa";
+  string Template = "Villa Number";
 }
 <div class="w-100 border-0 p-4">
   <div class="card-header bg-success bg-gradient ml-0 py-3">
@@ -13,7 +13,7 @@
   <div class="card-body border p-2">
     <div class="row pb-3">
       <div class="col-6 offset-6 text-end">
-        <a asp-controller="Villa" asp-action="Create" class="btn btn-secondary">
+        <a asp-controller="VillaNumber" asp-action="Create" class="btn btn-secondary">
           <i class="bi bi-plus-circle"></i> Create New
         </a>
       </div>
@@ -21,28 +21,25 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Sqft</th>
-          <th>Occupancy</th>
-          <th>Desc</th>
+          <th>Villa Name</th>
+          <th>Villa Number</th>
+          <th>Special Details</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         @foreach (var obj in Model)
         {
           <tr>
-            <td>@obj.Name</td>
-            <td>@obj.Price</td>
-            <td>@obj.Sqft</td>
-            <td>@obj.Occupancy</td>
-            <td>@obj.Desc</td>
+            <td>@obj.Villa.Name</td>
+            <td>@obj.Villa_Number</td>
+            <td>@obj.SpecialDetails</td>
             <td>
               <div class="w-100 btn-group text-nowrap" role="group">
-                <a asp-asp-controller="Villa" asp-action="Update" asp-route-id="@obj.ID">
+                <a asp-asp-controller="Villa" asp-action="Update" asp-route-id="@obj.Villa_Number">
                   <i class="bi bi-pencil-square"></i> Edit
                 </a>
-                <a asp-asp-controller="Villa" asp-action="Delete" asp-route-id="@obj.ID">
+                <a asp-asp-controller="Villa" asp-action="Delete" asp-route-id="@obj.Villa_Number">
                   <i class="bi bi-trash-fill"></i> Delete
                 </a>
               </div>

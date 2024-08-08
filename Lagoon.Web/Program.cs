@@ -1,47 +1,50 @@
+using Lagoon.App.Common;
 using Lagoon.Infra.Data;
+using Lagoon.Infra.Repo;
 using Microsoft.EntityFrameworkCore;
 
 internal class Program
 {
-    private static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        ConfigureServices(builder);
-        var app = builder.Build();
-        Configure(app);
+  private static void Main(string[] args)
+  {
+    var builder = WebApplication.CreateBuilder(args);
+    ConfigureServices(builder);
+    var app = builder.Build();
+    Configure(app);
 
-        app.Run();
+    app.Run();
+  }
+
+  private static void ConfigureServices(WebApplicationBuilder builder)
+  {
+    var Srvs = builder.Services;
+    Srvs.AddControllersWithViews();
+    _ = Srvs.AddDbContext<AppDBContext>(opt =>
+    {
+      string? conStr = builder.Configuration
+            .GetConnectionString("DefaultConnection");
+      opt.UseSqlServer(conStr);
+    });
+    Srvs.AddScoped<IRepoVilla, RepoVilla>();
+  }
+
+  private static void Configure(WebApplication app)
+  {
+    if (!app.Environment.IsDevelopment())
+    {
+      app.UseExceptionHandler("/Home/Error");
+      app.UseHsts();
     }
 
-    private static void ConfigureServices(WebApplicationBuilder builder)
-    {
-        var Srvs = builder.Services;
-        Srvs.AddControllersWithViews();
-        _ = Srvs.AddDbContext<AppDBContext>(opt =>
-        {
-            string? conStr = builder.Configuration
-                        .GetConnectionString("DefaultConnection");
-            opt.UseSqlServer(conStr);
-        });
-    }
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-    private static void Configure(WebApplication app)
-    {
-        if (!app.Environment.IsDevelopment())
-        {
-            app.UseExceptionHandler("/Home/Error");
-            app.UseHsts();
-        }
+    app.UseRouting();
 
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
+    app.UseAuthorization();
 
-        app.UseRouting();
-
-        app.UseAuthorization();
-
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-    }
+    app.MapControllerRoute(
+      name: "default",
+      pattern: "{controller=Home}/{action=Index}/{id?}");
+  }
 }

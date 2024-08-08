@@ -1,20 +1,18 @@
-using System.Diagnostics;
+using Lagoon.App.Common;
 using Lagoon.Domain.Entity;
-using Lagoon.Infra.Data;
-using Lagoon.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 namespace Lagoon.Web.Controllers;
 public class VillaController : Controller
 {
-  private readonly AppDBContext _db;
-  public VillaController(AppDBContext db)
+  private readonly IRepoVilla _repo;
+  public VillaController(IRepoVilla repo)
   {
-     _db = db;
+     _repo = repo;
   }
   public IActionResult Index()
   {
-     var villas = _db.Villas.ToList();
+     var villas = _repo.GetAll();
      return View(villas);
   }
   public IActionResult Create() 
@@ -24,12 +22,11 @@ public class VillaController : Controller
   [HttpPost]
   public IActionResult Create(Villa obj)
   {
-
       if(ModelState.IsValid) 
       { 
-         _db.Villas.Add(obj);
-         _db.SaveChanges();
-         TempData["success"] = "The Villa has been Created Successfully";
+         _repo.Add(obj);
+         _repo.Save();
+         TempData["success"] = "Record Created Successfully";
          return RedirectToAction("Index", "Villa");
       }
       if(obj.Name == obj.Desc)
@@ -38,12 +35,12 @@ public class VillaController : Controller
          
          ModelState.AddModelError("desc","The Desc can't exactly match the Name.");
       }
-      TempData["success"] = "The Villa could not be Created";
+      TempData["error"] = "Record not Created";
       return View();
   }
   public IActionResult Update(int id)
   {
-   Villa? obj = _db.Villas.FirstOrDefault(x => x.ID == id);
+   Villa? obj = _repo.Get(y => y.ID == id, null);
    if(obj == null)
    {
       return RedirectToAction("Error", "Home");
@@ -55,18 +52,17 @@ public class VillaController : Controller
   {
      if(ModelState.IsValid && obj.ID > 0)
      {
-      _db.Villas.Update(obj);
-      _db.SaveChanges();
-       TempData["success"] = "The Villa has been Updated Successfully";
+      _repo.Update(obj);
+      _repo.Save();
+       TempData["success"] = "Record Updated Successfully";
       return RedirectToAction("Index");
      }
-     TempData["success"] = "The Villa could not be Updated";
+     TempData["success"] = "Record not Updated";
      return View();
   }
-
   public IActionResult Delete(int id)
   {
-   Villa? obj = _db.Villas.FirstOrDefault(x => x.ID == id);
+   Villa? obj = _repo.Get(x => x.ID == id);
    if(obj == null)
    {
       return RedirectToAction("Error", "Home");
@@ -76,15 +72,15 @@ public class VillaController : Controller
   [HttpPost]
   public IActionResult Delete(Villa obj)
   {
-     Villa? objDB = _db.Villas.FirstOrDefault(x => x.ID == obj.ID);
+     Villa? objDB = _repo.Get(x => x.ID == obj.ID);
      if(objDB is not null)
      {
-      _db.Villas.Remove(objDB);
-      _db.SaveChanges();
-      TempData["success"] = "The Villa has been Deleted Successfully";
+      _repo.Remove(objDB);
+      _repo.Save();
+      TempData["success"] = "Record Deleted Successfully";
       return RedirectToAction("Index");
      }
-           TempData["error"] = "The Villa could not be Deleted";
+     TempData["error"] = "Record not Deleted";
      return View();
   }
 
