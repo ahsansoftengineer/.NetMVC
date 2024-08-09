@@ -1,6 +1,6 @@
 using Lagoon.Domain.Entity;
 using Lagoon.Domain.VM;
-using Lagoon.Infra.Data;
+using Lagoon.Infra.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -39,8 +39,8 @@ public class VillaNumberController : Controller
   public IActionResult Create(VillaNumberVM obj)
   {
     // ModelState.Remove("Villa");
-    var data = _db.VillaNumber.Any(x => x.Villa_Number == obj.D.Villa_Number);
-    if (ModelState.IsValid && !data)
+    var data = _db.VillaNumber.Any(x => obj.D != null && x.Villa_Number == obj.D.Villa_Number);
+    if (ModelState.IsValid && !data && obj.D is not null)
     {
       _db.VillaNumber.Add(obj.D);
       _db.SaveChanges();
@@ -65,7 +65,7 @@ public class VillaNumberController : Controller
   [HttpPost]
   public IActionResult Update(VillaNumberVM obj)
   {
-    if (ModelState.IsValid && obj.D.VillaId > 0)
+    if (ModelState.IsValid && obj.D != null && obj.D.VillaId > 0)
     {
       _db.VillaNumber.Update(obj.D);
       _db.SaveChanges();

@@ -1,5 +1,5 @@
 using Lagoon.App.Common;
-using Lagoon.Infra.Data;
+using Lagoon.Infra.Common;
 using Lagoon.Infra.Repo;
 using Microsoft.EntityFrameworkCore;
 

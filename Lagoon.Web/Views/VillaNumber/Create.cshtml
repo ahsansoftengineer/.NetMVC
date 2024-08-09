@@ -14,23 +14,23 @@
     <form method="post" class="row">
       <div class="form-floating py-1 col-md-6">
         <select 
-          asp-for="@Model.D.VillaId"
+          asp-for="D.VillaId"
           class="form-select border shadow" 
           asp-items="@Model.VillaList">
           <option disabled selected>--Select Villa--</option>
         </select>
-        <label asp-for="@Model.D.VillaId" class="ms-2"></label>
-        <span asp-validation-for="@Model.D.VillaId" class="text-danger"></span>
+        <label asp-for="D.VillaId" class="ms-2"></label>
+        <span asp-validation-for="D.VillaId" class="text-danger"></span>
       </div>
       <div class="form-floating py-1 col-md-6">
-        <input asp-for="@Model.D.Villa_Number" class="form-control border shadow" />
-        <label asp-for="@Model.D.Villa_Number" class="ms-2"></label>
-        <span asp-validation-for="@Model.D.Villa_Number" class="text-danger"></span>
+        <input asp-for="D.Villa_Number" class="form-control border shadow" />
+        <label asp-for="D.Villa_Number" class="ms-2"></label>
+        <span asp-validation-for="D.Villa_Number" class="text-danger"></span>
       </div>
       <div class="form-floating py-1 col-md-6">
-        <input asp-for="@Model.D.SpecialDetails" class="form-control border shadow" />
-        <label asp-for="@Model.D.SpecialDetails" class="ms-2"></label>
-        <span asp-validation-for="@Model.D.SpecialDetails" class="text-danger"></span>
+        <input asp-for="D.SpecialDetails" class="form-control border shadow" />
+        <label asp-for="D.SpecialDetails" class="ms-2"></label>
+        <span asp-validation-for="D.SpecialDetails" class="text-danger"></span>
       </div>
       <div class="col-12 mt-2">
         <div class="row">

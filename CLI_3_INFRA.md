@@ -33,7 +33,7 @@ Install-Package Microsoft.EntityFrameworkCore.Tools # Power Shell
 dotnet ef migrations add NameOfMigration 
 dotnet ef migrations add NameOfMigration -p Lagoon.Infra -s Lagoon.Web --context DBCntx # When you have two or more Projects
 
-dotnet ef migrations add VillaNumber -p Lagoon.Infra -s Lagoon.Web
+dotnet ef migrations add Init -p Lagoon.Infra -s Lagoon.Web
 
 # UPDATE
 dotnet ef database update -p Lagoon.Infra -s Lagoon.Web --connection "Server=.;Database=Lagoon;User Id=sa;Password=Asdf@1234;TrustServerCertificate=True;"
