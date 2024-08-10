@@ -4,9 +4,9 @@ namespace Lagoon.App.Common;
 public interface IRepoGeneric<T>
 where T : class
 {
-  void Save();
+  // void Save();
+  // void Update(T entity);
   void Add(T entity);
-  void Update(T entity);
   void Remove(T entity);
   IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? include = null);
   T? Get(Expression<Func<T, bool>> filter, string? include = null);

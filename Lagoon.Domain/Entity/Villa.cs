@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace Lagoon.Domain.Entity;
 public class Villa 
@@ -15,6 +16,9 @@ public class Villa
   [Range(1,10)]
   public int Occupancy {get; set;}
   [Display(Name="Image Url")]
+
+  [NotMapped]
+  public IFormFile? Image {get; set;}
   public string? ImageUrl {get; set;}
   [Column("Created_Date")]
   public DateTime? CreatedDate {get; set;}
