@@ -1,8 +1,6 @@
-using System.Linq.Expressions;
 using Lagoon.App.Common;
 using Lagoon.Domain.Entity;
 using Lagoon.Infra.Common;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lagoon.Infra.Repo;
 public class RepoVilla : RepoGeneric<Villa>, IRepoVilla
@@ -11,10 +9,6 @@ public class RepoVilla : RepoGeneric<Villa>, IRepoVilla
   public RepoVilla(AppDBContext db): base(db)
   {
     _db = db;
-  }
-  public void Save()
-  {
-    _db.SaveChanges();
   }
   public void Update(Villa entity)
   {

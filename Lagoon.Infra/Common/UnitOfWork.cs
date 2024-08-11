@@ -6,10 +6,14 @@ public class UnitOfWork : IUnitOfWork
 {
   private readonly AppDBContext _db;
   public IRepoVilla Villa { get; private set; }
-  public UnitOfWork(AppDBContext db)  
+  public UnitOfWork(AppDBContext db)
   {
-   _db = db;
-   Villa = new RepoVilla(_db);
+    _db = db;
+    Villa = new RepoVilla(_db);
   }
 
+  public void Save()
+  {
+    _db.SaveChanges();
+  }
 }

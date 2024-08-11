@@ -25,7 +25,8 @@ internal class Program
             .GetConnectionString("DefaultConnection");
       opt.UseSqlServer(conStr);
     });
-    Srvs.AddScoped<IRepoVilla, RepoVilla>();
+    // Srvs.AddScoped<IRepoVilla, RepoVilla>();
+    Srvs.AddScoped<IUnitOfWork, UnitOfWork>();
   }
 
   private static void Configure(WebApplication app)

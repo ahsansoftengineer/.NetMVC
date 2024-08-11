@@ -5,14 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace Lagoon.Web.Controllers;
 public class VillaController : Controller
 {
-  private readonly IRepoVilla _repo;
-  public VillaController(IRepoVilla repo)
+//   private readonly IRepoVilla _repo;
+  private readonly IUnitOfWork _uow;
+  public VillaController(
+   // IRepoVilla repo
+   IUnitOfWork uow
+
+   )
   {
-     _repo = repo;
+   this._uow = uow;
+   //   _repo = repo;
   }
   public IActionResult Index()
   {
-     var villas = _repo.GetAll();
+     var villas = _uow.Villa.GetAll();
      return View(villas);
   }
   public IActionResult Create() 
@@ -24,8 +30,8 @@ public class VillaController : Controller
   {
       if(ModelState.IsValid) 
       { 
-         _repo.Add(obj);
-         _repo.Save();
+         _uow.Villa.Add(obj);
+         _uow.Save();
          TempData["success"] = "Record Created Successfully";
          return RedirectToAction("Index", "Villa");
       }
@@ -40,7 +46,7 @@ public class VillaController : Controller
   }
   public IActionResult Update(int id)
   {
-   Villa? obj = _repo.Get(y => y.ID == id, null);
+   Villa? obj = _uow.Villa.Get(y => y.ID == id, null);
    if(obj == null)
    {
       return RedirectToAction("Error", "Home");
@@ -52,8 +58,8 @@ public class VillaController : Controller
   {
      if(ModelState.IsValid && obj.ID > 0)
      {
-      _repo.Update(obj);
-      _repo.Save();
+      _uow.Villa.Update(obj);
+      _uow.Save();
        TempData["success"] = "Record Updated Successfully";
       return RedirectToAction("Index");
      }
@@ -62,7 +68,7 @@ public class VillaController : Controller
   }
   public IActionResult Delete(int id)
   {
-   Villa? obj = _repo.Get(x => x.ID == id);
+   Villa? obj = _uow.Villa.Get(x => x.ID == id);
    if(obj == null)
    {
       return RedirectToAction("Error", "Home");
@@ -72,16 +78,15 @@ public class VillaController : Controller
   [HttpPost]
   public IActionResult Delete(Villa obj)
   {
-     Villa? objDB = _repo.Get(x => x.ID == obj.ID);
+     Villa? objDB = _uow.Villa.Get(x => x.ID == obj.ID);
      if(objDB is not null)
      {
-      _repo.Remove(objDB);
-      _repo.Save();
+      _uow.Villa.Remove(objDB);
+      _uow.Save();
       TempData["success"] = "Record Deleted Successfully";
       return RedirectToAction("Index");
      }
      TempData["error"] = "Record not Deleted";
      return View();
   }
-
 }
