@@ -32,19 +32,7 @@ public class VillaController : Controller
   {
     if (ModelState.IsValid)
     {
-      if (obj.Image != null)
-      {
-        string fileName = Guid.NewGuid().ToString()+ Path.GetExtension(obj.Image.FileName);
-        string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"Images\VillaImage");
-        using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create)){
-          obj.Image.CopyTo(fileStream); 
-          obj.ImageUrl = @"\Images\VillaImage\" + fileName;
-        }
-      }
-      else 
-      {
-        obj.ImageUrl = "https://placehold.co/600x400";
-      }
+      SaveImgInDir(ref obj);
       _uow.Villa.Add(obj);
       _uow.Save();
       TempData["success"] = "Record Created Successfully";
@@ -53,12 +41,13 @@ public class VillaController : Controller
     if (obj.Name == obj.Desc)
     {
       ModelState.AddModelError("", "The Desc can't exactly match the Name.");
-
       ModelState.AddModelError("desc", "The Desc can't exactly match the Name.");
     }
     TempData["error"] = "Record not Created";
     return View();
   }
+
+
   public IActionResult Update(int id)
   {
     Villa? obj = _uow.Villa.Get(y => y.ID == id, null);
@@ -73,6 +62,8 @@ public class VillaController : Controller
   {
     if (ModelState.IsValid && obj.ID > 0)
     {
+      DeleteFile(obj);
+      SaveImgInDir(ref obj);
       _uow.Villa.Update(obj);
       _uow.Save();
       TempData["success"] = "Record Updated Successfully";
@@ -96,6 +87,7 @@ public class VillaController : Controller
     Villa? objDB = _uow.Villa.Get(x => x.ID == obj.ID);
     if (objDB is not null)
     {
+      DeleteFile(objDB, true);
       _uow.Villa.Remove(objDB);
       _uow.Save();
       TempData["success"] = "Record Deleted Successfully";
@@ -104,4 +96,35 @@ public class VillaController : Controller
     TempData["error"] = "Record not Deleted";
     return View();
   }
+  private void SaveImgInDir(ref Villa obj)
+  {
+    if (obj.Image != null)
+    {
+      string fileName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
+      string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"Images\VillaImage");
+      using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
+      {
+        obj.Image.CopyTo(fileStream);
+        obj.ImageUrl = @"\Images\VillaImage\" + fileName;
+      }
+
+    }
+    else if(string.IsNullOrEmpty(obj.ImageUrl))
+    {
+      obj.ImageUrl = "https://placehold.co/600x400";
+    }
+  }
+
+  private void DeleteFile(Villa obj, bool isDel = false)
+  {
+    if (!string.IsNullOrEmpty(obj.ImageUrl) && (obj.Image != null || isDel))
+    {
+      var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+      if (System.IO.File.Exists(oldImagePath))
+      {
+        System.IO.File.Delete(oldImagePath);
+      }
+    }
+  }
+
 }

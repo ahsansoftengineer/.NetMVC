@@ -12,7 +12,6 @@
   </div>
   <div class="card-body border p-2">
     <form method="post" class="row" enctype="multipart/form-data">
-     
       <div class="form-floating py-1 col-md-6">
         <input asp-for="Name" class="form-control border shadow" />
         <label asp-for="Name" class="ms-2"></label>
@@ -44,10 +43,6 @@
         <label asp-for="ImageUrl" class="ms-2"></label>
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
       </div>
-       @* <div class="col-12">
-        ModelOnly, None
-        <div asp-validation-summary="All" class="text-danger"></div>
-      </div> *@
       <div class="col-12 mt-2">
         <div class="row">
           <div class="col-6 col-md-3">
@@ -66,7 +61,7 @@
     </form>
   </div>
 </div>
-@section Scripts{
+@section Scripts {
   @{
     <partial name="_ValidationScriptsPartial" />
   }
