@@ -38,7 +38,7 @@ public class VillaNumberController : Controller
   public IActionResult Create(VillaNumberVM obj)
   {
     // ModelState.Remove("Villa");
-    var data = _uow.VillaNumber.GetAll().Any(x => obj.D != null && x.Villa_Number == obj.D.Villa_Number);
+    var data = _uow.VillaNumber.Any(x => obj.D != null && x.Villa_Number == obj.D.Villa_Number);
     if (ModelState.IsValid && !data && obj.D is not null)
     {
       _uow.VillaNumber.Add(obj.D);

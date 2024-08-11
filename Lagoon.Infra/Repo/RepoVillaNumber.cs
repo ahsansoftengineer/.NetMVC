@@ -1,4 +1,3 @@
-using Lagoon.App.Common;
 using Lagoon.App.Repo;
 using Lagoon.Domain.Entity;
 using Lagoon.Infra.Common;

@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using Lagoon.App.Common;
-using Lagoon.Domain.Entity;
 using Lagoon.Infra.Common;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,4 +58,9 @@ where T : class
     }
     return query.ToList();
   }
+
+    public bool Any(Expression<Func<T, bool>>? filter = null)
+    {
+        return dbSet.Any(filter);
+    }
 }

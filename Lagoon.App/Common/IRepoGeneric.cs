@@ -10,4 +10,6 @@ where T : class
   void Remove(T entity);
   IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? include = null);
   T? Get(Expression<Func<T, bool>> filter, string? include = null);
+  bool Any(Expression<Func<T, bool>>? filter = null);
+
 }
