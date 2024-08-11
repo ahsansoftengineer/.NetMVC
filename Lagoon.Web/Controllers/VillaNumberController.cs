@@ -64,6 +64,8 @@ public class VillaNumberController : Controller
   [HttpPost]
   public IActionResult Update(VillaNumberVM obj)
   {
+    bool hasVilla = _uow.VillaNumber.Any(y => y.Villa_Number == obj.D.Villa_Number);
+    
     if (ModelState.IsValid && obj.D != null && obj.D.VillaId > 0)
     {
       _uow.VillaNumber.Update(obj.D);
