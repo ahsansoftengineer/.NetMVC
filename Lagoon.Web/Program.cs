@@ -26,6 +26,7 @@ internal class Program
       opt.UseSqlServer(conStr);
     });
     // Srvs.AddScoped<IRepoVilla, RepoVilla>();
+    // Srvs.AddScoped<IRepoVillaNumber, RepoVillaNumber>();
     Srvs.AddScoped<IUnitOfWork, UnitOfWork>();
   }
 

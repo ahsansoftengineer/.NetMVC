@@ -1,28 +1,27 @@
+using Lagoon.App.Common;
 using Lagoon.Domain.Entity;
 using Lagoon.Domain.VM;
-using Lagoon.Infra.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lagoon.Web.Controllers;
 public class VillaNumberController : Controller
 {
-  private readonly AppDBContext _db;
-  public VillaNumberController(AppDBContext db)
+  private readonly IUnitOfWork _uow;
+  public VillaNumberController(IUnitOfWork uow)
   {
-    _db = db;
+    _uow = uow;
   }
   public IActionResult Index()
   {
-    var data = _db.VillaNumber.Include(y => y.Villa).ToList();
+    var data = _uow.VillaNumber.GetAll(x => true, "Villa").ToList();
     return View(data);
   }
   private VillaNumberVM GetVM(VillaNumber D = null)
   {
     return new VillaNumberVM
     {
-      VillaList = _db.Villas.ToList()
+      VillaList = _uow.Villa.GetAll().ToList()
         .Select(x => new SelectListItem
         {
           Text = x.Name,
@@ -39,11 +38,11 @@ public class VillaNumberController : Controller
   public IActionResult Create(VillaNumberVM obj)
   {
     // ModelState.Remove("Villa");
-    var data = _db.VillaNumber.Any(x => obj.D != null && x.Villa_Number == obj.D.Villa_Number);
+    var data = _uow.VillaNumber.GetAll().Any(x => obj.D != null && x.Villa_Number == obj.D.Villa_Number);
     if (ModelState.IsValid && !data && obj.D is not null)
     {
-      _db.VillaNumber.Add(obj.D);
-      _db.SaveChanges();
+      _uow.VillaNumber.Add(obj.D);
+      _uow.Save();
       TempData["success"] = "Record Created Successfully";
       return RedirectToAction("Index", "VillaNumber");
 
@@ -55,7 +54,7 @@ public class VillaNumberController : Controller
   public IActionResult Update(int id)
   {
     VillaNumberVM result = GetVM();
-    result.D = _db.VillaNumber.FirstOrDefault(x => x.Villa_Number == id);
+    result.D = _uow.VillaNumber.Get(x => x.Villa_Number == id);
     if (result.D == null)
     {
       return RedirectToAction("Error", "Home");
@@ -67,8 +66,8 @@ public class VillaNumberController : Controller
   {
     if (ModelState.IsValid && obj.D != null && obj.D.VillaId > 0)
     {
-      _db.VillaNumber.Update(obj.D);
-      _db.SaveChanges();
+      _uow.VillaNumber.Update(obj.D);
+      _uow.Save();
       TempData["success"] = "Record Updated Successfully";
       return RedirectToAction("Index");
     }
@@ -79,7 +78,7 @@ public class VillaNumberController : Controller
 
   public IActionResult Delete(int id)
   {
-    VillaNumber? obj = _db.VillaNumber.FirstOrDefault(x => x.Villa_Number == id);
+    VillaNumber? obj = _uow.VillaNumber.Get(x => x.Villa_Number == id);
     if (obj == null)
     {
       return RedirectToAction("Error", "Home");
@@ -89,11 +88,11 @@ public class VillaNumberController : Controller
   [HttpPost]
   public IActionResult Delete(Villa obj)
   {
-    VillaNumber? objDB = _db.VillaNumber.FirstOrDefault(x => x.Villa_Number == obj.ID);
+    VillaNumber? objDB = _uow.VillaNumber.Get(x => x.Villa_Number == obj.ID);
     if (objDB is not null)
     {
-      _db.VillaNumber.Remove(objDB);
-      _db.SaveChanges();
+      _uow.VillaNumber.Remove(objDB);
+      _uow.Save();
       TempData["success"] = "Record Deleted Successfully";
       return RedirectToAction("Index");
     }
