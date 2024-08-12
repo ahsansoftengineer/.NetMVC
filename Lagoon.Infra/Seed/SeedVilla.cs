@@ -14,8 +14,9 @@ public static partial class SeedData
         Name = "Royal Villa 1",
         Desc = "No Desc",
         ImageUrl = "https://placehold.co/600x400",
-        Price = 200,
-        Sqft = 550,
+        Price = 100,
+        Sqft = 1000,
+        Occupancy = 1,
       },
       new Villa
       {
@@ -24,7 +25,8 @@ public static partial class SeedData
         Desc = "No Desc",
         ImageUrl = "https://placehold.co/600x400",
         Price = 200,
-        Sqft = 550,
+        Sqft = 2000,
+        Occupancy = 2,
       },
       new Villa
       {
@@ -32,8 +34,9 @@ public static partial class SeedData
         Name = "Royal Villa 3",
         Desc = "No Desc",
         ImageUrl = "https://placehold.co/600x400",
-        Price = 200,
-        Sqft = 550,
+        Price = 300,
+        Sqft = 3000,
+        Occupancy = 3,
       }
     );
   }
