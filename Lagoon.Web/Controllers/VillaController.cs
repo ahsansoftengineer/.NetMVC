@@ -101,15 +101,20 @@ public class VillaController : Controller
     if (obj.Image != null)
     {
       string fileName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
-      string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"Images\VillaImage");
+      string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "VillaImage");
+      if (!Directory.Exists(imagePath))
+      {
+        Directory.CreateDirectory(imagePath);
+      }
       using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
       {
         obj.Image.CopyTo(fileStream);
-        obj.ImageUrl = @"\Images\VillaImage\" + fileName;
+        obj.ImageUrl = Path.Combine("/Images", "VillaImage", fileName);
+        // https://localhost:7003/
       }
 
     }
-    else if(string.IsNullOrEmpty(obj.ImageUrl))
+    else if (string.IsNullOrEmpty(obj.ImageUrl))
     {
       obj.ImageUrl = "https://placehold.co/600x400";
     }
@@ -119,7 +124,8 @@ public class VillaController : Controller
   {
     if (!string.IsNullOrEmpty(obj.ImageUrl) && (obj.Image != null || isDel))
     {
-      var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+      var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\').TrimStart('/'));
+      Console.WriteLine(oldImagePath);
       if (System.IO.File.Exists(oldImagePath))
       {
         System.IO.File.Delete(oldImagePath);
