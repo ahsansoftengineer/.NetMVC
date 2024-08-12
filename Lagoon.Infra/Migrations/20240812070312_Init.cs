@@ -34,6 +34,27 @@ namespace Lagoon.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Amenity",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VillaId = table.Column<int>(type: "int", nullable: false),
+                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Amenity", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Amenity_Villas_VillaId",
+                        column: x => x.VillaId,
+                        principalTable: "Villas",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VillaNumber",
                 columns: table => new
                 {
@@ -63,6 +84,16 @@ namespace Lagoon.Infra.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Amenity",
+                columns: new[] { "ID", "Desc", "Name", "VillaId" },
+                values: new object[,]
+                {
+                    { 1, "Amenity 1 Desc", "Amenity 1", 1 },
+                    { 2, "Amenity 2 Desc", "Amenity 2", 2 },
+                    { 3, "Amenity 3 Desc", "Amenity 3", 3 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "VillaNumber",
                 columns: new[] { "Villa_Number", "SpecialDetails", "VillaId" },
                 values: new object[,]
@@ -76,6 +107,11 @@ namespace Lagoon.Infra.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Amenity_VillaId",
+                table: "Amenity",
+                column: "VillaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VillaNumber_VillaId",
                 table: "VillaNumber",
                 column: "VillaId");
@@ -84,6 +120,9 @@ namespace Lagoon.Infra.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Amenity");
+
             migrationBuilder.DropTable(
                 name: "VillaNumber");
 

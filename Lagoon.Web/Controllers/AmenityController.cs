@@ -1,64 +1,84 @@
 using Lagoon.App.Common;
 using Lagoon.Domain.Entity;
+using Lagoon.Domain.VM;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Lagoon.Web.Controllers;
 public class AmenityController : Controller
 {
   private readonly IUnitOfWork _uow;
-  public AmenityController(
-   IUnitOfWork uow
-   )
+  public AmenityController(IUnitOfWork uow)
   {
-    this._uow = uow;
-    //  _repo = repo;
+    _uow = uow;
   }
   public IActionResult Index()
   {
     var data = _uow.Amenity.GetAll(x => true, "Villa").ToList();
     return View(data);
   }
+  private VM_Amenity GetVM(Amenity D = null)
+  {
+    return new VM_Amenity
+    {
+      VillaList = _uow.Villa.GetAll().ToList()
+        .Select(x => new SelectListItem
+        {
+          Text = x.Name,
+          Value = x.ID.ToString(),
+        }),
+      D = D
+    };
+  }
   public IActionResult Create()
   {
-    return View();
+    return View(GetVM());
   }
   [HttpPost]
-  public IActionResult Create(Amenity obj)
+  public IActionResult Create(VM_Amenity obj)
   {
-    if (ModelState.IsValid)
+    // ModelState.Remove("Villa");
+    var data = _uow.Amenity.Any(x => obj.D != null && x.VillaId == obj.D.ID);
+    if (ModelState.IsValid && !data && obj.D is not null)
     {
-      _uow.Amenity.Add(obj);
+      _uow.Amenity.Add(obj.D);
       _uow.Save();
       TempData["success"] = "Record Created Successfully";
       return RedirectToAction("Index", "Amenity");
+
     }
-    TempData["error"] = "Record not Created";
-    return View();
+    TempData["error"] = data ? "Record Already Exsits" : "Record not Created";
+    obj.VillaList = GetVM().VillaList;
+    return View(obj);
   }
-
-
   public IActionResult Update(int id)
   {
-    Amenity? obj = _uow.Amenity.Get(y => y.ID == id, null);
-    if (obj == null)
+    VM_Amenity result = GetVM();
+    result.D = _uow.Amenity.Get(x => x.ID == id);
+    if (result.D == null)
     {
       return RedirectToAction("Error", "Home");
     }
-    return View(obj);
+    return View(result);
   }
   [HttpPost]
-  public IActionResult Update(Amenity obj)
+  public IActionResult Update(VM_Amenity obj)
   {
-    if (ModelState.IsValid && obj.ID > 0)
+    bool hasVilla = _uow.Amenity.Any(y => y.ID == obj.D.ID);
+    Console.WriteLine(hasVilla);
+    Console.WriteLine(obj.D.ID);
+    if (ModelState.IsValid && obj.D != null && obj.D.VillaId > 0)
     {
-      _uow.Amenity.Update(obj);
+      _uow.Amenity.Update(obj.D);
       _uow.Save();
       TempData["success"] = "Record Updated Successfully";
       return RedirectToAction("Index");
     }
-    TempData["success"] = "Record not Updated";
-    return View();
+    obj.VillaList =  GetVM().VillaList;
+    TempData["error"] = "Record not Updated";
+    return View(obj);
   }
+
   public IActionResult Delete(int id)
   {
     Amenity? obj = _uow.Amenity.Get(x => x.ID == id);
@@ -69,7 +89,7 @@ public class AmenityController : Controller
     return View(obj);
   }
   [HttpPost]
-  public IActionResult Delete(Amenity obj)
+  public IActionResult Delete(Villa obj)
   {
     Amenity? objDB = _uow.Amenity.Get(x => x.ID == obj.ID);
     if (objDB is not null)
@@ -82,4 +102,5 @@ public class AmenityController : Controller
     TempData["error"] = "Record not Deleted";
     return View();
   }
+
 }

@@ -1,4 +1,4 @@
-@model VillaNumberVM
+@model VM_VillaNumber
 @{
   string Template = "Villa Number";
 }
@@ -13,9 +13,11 @@
   <div class="card-body border p-2">
     <form method="post" class="row">
       <div class="form-floating py-1 col-md-6">
-        <input asp-for="D.VillaId" class="form-control border shadow" />
+        <select asp-for="D.VillaId" class="form-select border shadow" asp-items="@Model.VillaList">
+          <option disabled selected>--Select Villa--</option>
+        </select>
         <label asp-for="D.VillaId" class="ms-2"></label>
-        <span asp-validation-for="D.Villa_Number" class="text-danger"></span>
+        <span asp-validation-for="D.VillaId" class="text-danger"></span>
       </div>
       <div class="form-floating py-1 col-md-6">
         <input asp-for="D.Villa_Number" class="form-control border shadow" />

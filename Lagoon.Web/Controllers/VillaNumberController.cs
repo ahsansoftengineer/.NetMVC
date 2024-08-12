@@ -17,9 +17,9 @@ public class VillaNumberController : Controller
     var data = _uow.VillaNumber.GetAll(x => true, "Villa").ToList();
     return View(data);
   }
-  private VillaNumberVM GetVM(VillaNumber D = null)
+  private VM_VillaNumber GetVM(VillaNumber D = null)
   {
-    return new VillaNumberVM
+    return new VM_VillaNumber
     {
       VillaList = _uow.Villa.GetAll().ToList()
         .Select(x => new SelectListItem
@@ -35,7 +35,7 @@ public class VillaNumberController : Controller
     return View(GetVM());
   }
   [HttpPost]
-  public IActionResult Create(VillaNumberVM obj)
+  public IActionResult Create(VM_VillaNumber obj)
   {
     // ModelState.Remove("Villa");
     var data = _uow.VillaNumber.Any(x => obj.D != null && x.Villa_Number == obj.D.Villa_Number);
@@ -53,7 +53,7 @@ public class VillaNumberController : Controller
   }
   public IActionResult Update(int id)
   {
-    VillaNumberVM result = GetVM();
+    VM_VillaNumber result = GetVM();
     result.D = _uow.VillaNumber.Get(x => x.Villa_Number == id);
     if (result.D == null)
     {
@@ -62,7 +62,7 @@ public class VillaNumberController : Controller
     return View(result);
   }
   [HttpPost]
-  public IActionResult Update(VillaNumberVM obj)
+  public IActionResult Update(VM_VillaNumber obj)
   {
     bool hasVilla = _uow.VillaNumber.Any(y => y.Villa_Number == obj.D.Villa_Number);
     

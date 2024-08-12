@@ -22,6 +22,54 @@ namespace Lagoon.Infra.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Lagoon.Domain.Entity.Amenity", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Desc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VillaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("VillaId");
+
+                    b.ToTable("Amenity");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Desc = "Amenity 1 Desc",
+                            Name = "Amenity 1",
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Desc = "Amenity 2 Desc",
+                            Name = "Amenity 2",
+                            VillaId = 2
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Desc = "Amenity 3 Desc",
+                            Name = "Amenity 3",
+                            VillaId = 3
+                        });
+                });
+
             modelBuilder.Entity("Lagoon.Domain.Entity.Villa", b =>
                 {
                     b.Property<int>("ID")
@@ -143,6 +191,17 @@ namespace Lagoon.Infra.Migrations
                             Villa_Number = 203,
                             VillaId = 2
                         });
+                });
+
+            modelBuilder.Entity("Lagoon.Domain.Entity.Amenity", b =>
+                {
+                    b.HasOne("Lagoon.Domain.Entity.Villa", "Villa")
+                        .WithMany()
+                        .HasForeignKey("VillaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Villa");
                 });
 
             modelBuilder.Entity("Lagoon.Domain.Entity.VillaNumber", b =>
