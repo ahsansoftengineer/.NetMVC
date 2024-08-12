@@ -4,6 +4,7 @@ using Lagoon.Infra.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lagoon.Infra.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240812105727_VillaAmenity")]
+    partial class VillaAmenity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,7 +199,7 @@ namespace Lagoon.Infra.Migrations
             modelBuilder.Entity("Lagoon.Domain.Entity.Amenity", b =>
                 {
                     b.HasOne("Lagoon.Domain.Entity.Villa", "Villa")
-                        .WithMany("VillaAmenity")
+                        .WithMany()
                         .HasForeignKey("VillaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -207,19 +210,12 @@ namespace Lagoon.Infra.Migrations
             modelBuilder.Entity("Lagoon.Domain.Entity.VillaNumber", b =>
                 {
                     b.HasOne("Lagoon.Domain.Entity.Villa", "Villa")
-                        .WithMany("VillaNumber")
+                        .WithMany()
                         .HasForeignKey("VillaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Villa");
-                });
-
-            modelBuilder.Entity("Lagoon.Domain.Entity.Villa", b =>
-                {
-                    b.Navigation("VillaAmenity");
-
-                    b.Navigation("VillaNumber");
                 });
 #pragma warning restore 612, 618
         }

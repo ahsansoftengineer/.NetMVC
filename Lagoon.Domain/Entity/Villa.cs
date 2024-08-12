@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Lagoon.Domain.Entity;
 public class Villa 
@@ -20,6 +21,14 @@ public class Villa
   [NotMapped]
   public IFormFile? Image {get; set;}
   public string? ImageUrl {get; set;}
+  
+  [ValidateNever]
+  public IEnumerable<VillaNumber> VillaNumber {get; set;}
+
+  [ValidateNever]
+  public IEnumerable<Amenity> VillaAmenity {get; set;}
+
+
   [Column("Created_Date")]
   public DateTime? CreatedDate {get; set;}
   [Column("Updated_Date")]
