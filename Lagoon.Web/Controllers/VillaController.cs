@@ -125,7 +125,6 @@ public class VillaController : Controller
     if (!string.IsNullOrEmpty(obj.ImageUrl) && (obj.Image != null || isDel))
     {
       var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\').TrimStart('/'));
-      Console.WriteLine(oldImagePath);
       if (System.IO.File.Exists(oldImagePath))
       {
         System.IO.File.Delete(oldImagePath);

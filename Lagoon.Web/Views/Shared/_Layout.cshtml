@@ -42,6 +42,9 @@
             <li class="nav-item">
               <a class="nav-link text-dark" asp-area="" asp-controller="VillaNumber" asp-action="Index">Villa Number</a>
             </li>
+             <li class="nav-item">
+              <a class="nav-link text-dark" asp-area="" asp-controller="Amenity" asp-action="Index">Amenity</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -51,7 +54,6 @@
     <main role="main" class="pb-3">
       @if (TempData["error"] != TempData["success"])
       {
-
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
           integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
@@ -70,10 +72,6 @@
           </script>
         }
       }
-
-
-
-
       @RenderBody()
     </main>
   </div>

@@ -13,8 +13,11 @@ public class AppDBContext : DbContext
   {
     SeedData.Villa(modelBuilder);
     SeedData.VillaNumber(modelBuilder);
+    SeedData.Amenity(modelBuilder);
+    
     base.OnModelCreating(modelBuilder);
   }
   public DbSet<Villa> Villas { get; set; }
   public DbSet<VillaNumber> VillaNumber { get; set; }
+  public DbSet<Amenity> Amenity { get; set; }
 }
