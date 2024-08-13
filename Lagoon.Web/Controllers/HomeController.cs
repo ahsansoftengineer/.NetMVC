@@ -19,7 +19,7 @@ public class HomeController : Controller
   }
   public IActionResult Index()
   {
-    VM_Home homeVM = new()
+    VM_Home vm = new()
     {
       VillaList = _uow.Villa.GetAll(include: "VillaAmenity"),
       Night = 1,
@@ -27,7 +27,7 @@ public class HomeController : Controller
       CheckOutDate = DateOnly.FromDateTime(DateTime.Now),
     };
     // Console.WriteLine(JsonSerializer.Serialize(homeVM));
-    return View(homeVM);
+    return View(vm);
   }
 
   public IActionResult Privacy()

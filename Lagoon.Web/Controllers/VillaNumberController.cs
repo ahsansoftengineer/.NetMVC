@@ -14,7 +14,7 @@ public class VillaNumberController : Controller
   }
   public IActionResult Index()
   {
-    var data = _uow.VillaNumber.GetAll(x => true, "Villa").ToList();
+    var data = _uow.VillaNumber.GetAll(include: "Villa").ToList();
     return View(data);
   }
   private VM_VillaNumber GetVM(VillaNumber D = null)

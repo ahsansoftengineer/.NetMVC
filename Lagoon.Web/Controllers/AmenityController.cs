@@ -14,7 +14,7 @@ public class AmenityController : Controller
   }
   public IActionResult Index()
   {
-    var data = _uow.Amenity.GetAll(x => true, "Villa").ToList();
+    var data = _uow.Amenity.GetAll(include: "Villa").ToList();
     return View(data);
   }
   private VM_Amenity GetVM(Amenity D = null)
