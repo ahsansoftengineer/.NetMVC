@@ -78,9 +78,9 @@ namespace Lagoon.Infra.Migrations
                 columns: new[] { "ID", "Created_Date", "Desc", "ImageUrl", "Name", "Occupancy", "Price", "Sqft", "Updated_Date" },
                 values: new object[,]
                 {
-                    { 1, null, "No Desc", "https://placehold.co/600x400", "Royal Villa 1", 0, 200.0, 550, null },
-                    { 2, null, "No Desc", "https://placehold.co/600x400", "Royal Villa 2", 0, 200.0, 550, null },
-                    { 3, null, "No Desc", "https://placehold.co/600x400", "Royal Villa 3", 0, 200.0, 550, null }
+                    { 1, null, "No Desc", "https://placehold.co/600x400", "Royal Villa 1", 1, 100.0, 1000, null },
+                    { 2, null, "No Desc", "https://placehold.co/600x400", "Royal Villa 2", 2, 200.0, 2000, null },
+                    { 3, null, "No Desc", "https://placehold.co/600x400", "Royal Villa 3", 3, 300.0, 3000, null }
                 });
 
             migrationBuilder.InsertData(

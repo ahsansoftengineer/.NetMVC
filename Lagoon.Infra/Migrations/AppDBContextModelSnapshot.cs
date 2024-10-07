@@ -117,9 +117,9 @@ namespace Lagoon.Infra.Migrations
                             Desc = "No Desc",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa 1",
-                            Occupancy = 0,
-                            Price = 200.0,
-                            Sqft = 550
+                            Occupancy = 1,
+                            Price = 100.0,
+                            Sqft = 1000
                         },
                         new
                         {
@@ -127,9 +127,9 @@ namespace Lagoon.Infra.Migrations
                             Desc = "No Desc",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa 2",
-                            Occupancy = 0,
+                            Occupancy = 2,
                             Price = 200.0,
-                            Sqft = 550
+                            Sqft = 2000
                         },
                         new
                         {
@@ -137,9 +137,9 @@ namespace Lagoon.Infra.Migrations
                             Desc = "No Desc",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa 3",
-                            Occupancy = 0,
-                            Price = 200.0,
-                            Sqft = 550
+                            Occupancy = 3,
+                            Price = 300.0,
+                            Sqft = 3000
                         });
                 });
 

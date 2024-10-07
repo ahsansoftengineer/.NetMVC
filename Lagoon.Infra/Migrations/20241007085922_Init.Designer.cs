@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lagoon.Infra.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240812105924_VillaAmenitz")]
-    partial class VillaAmenitz
+    [Migration("20241007085922_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,9 +120,9 @@ namespace Lagoon.Infra.Migrations
                             Desc = "No Desc",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa 1",
-                            Occupancy = 0,
-                            Price = 200.0,
-                            Sqft = 550
+                            Occupancy = 1,
+                            Price = 100.0,
+                            Sqft = 1000
                         },
                         new
                         {
@@ -130,9 +130,9 @@ namespace Lagoon.Infra.Migrations
                             Desc = "No Desc",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa 2",
-                            Occupancy = 0,
+                            Occupancy = 2,
                             Price = 200.0,
-                            Sqft = 550
+                            Sqft = 2000
                         },
                         new
                         {
@@ -140,9 +140,9 @@ namespace Lagoon.Infra.Migrations
                             Desc = "No Desc",
                             ImageUrl = "https://placehold.co/600x400",
                             Name = "Royal Villa 3",
-                            Occupancy = 0,
-                            Price = 200.0,
-                            Sqft = 550
+                            Occupancy = 3,
+                            Price = 300.0,
+                            Sqft = 3000
                         });
                 });
 
