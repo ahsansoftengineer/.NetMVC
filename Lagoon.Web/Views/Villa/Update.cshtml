@@ -1,0 +1,73 @@
+@{
+  @model Villa
+  string Template = "Villa";
+}
+<div class="w-100 border-0 p-4">
+  <div class="card-header bg-success bg-gradient ml-0 py-3">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="text-white py-2">Update @Template</h1>
+      </div>
+    </div>
+  </div>
+  <div class="card-body border p-2">
+    <form method="post" class="row" enctype="multipart/form-data">
+      <div class="col-md-9">
+        <div class="row">
+          <input asp-for="ID" hidden />
+          <div class="form-floating py-1 col-md-6">
+            <input asp-for="Name" class="form-control border shadow" />
+            <label asp-for="Name" class="ms-2"></label>
+            <span asp-validation-for="Name" class="text-danger"></span>
+          </div>
+          <div class="form-floating py-1 col-md-6">
+            <input asp-for="Price" class="form-control border shadow" />
+            <label asp-for="Price" class="ms-2"></label>
+            <span asp-validation-for="Price" class="text-danger"></span>
+          </div>
+          <div class="form-floating py-1 col-md-6">
+            <input asp-for="Sqft" class="form-control border shadow" />
+            <label asp-for="Sqft" class="ms-2"></label>
+            <span asp-validation-for="Sqft" class="text-danger"></span>
+          </div>
+          <div class="form-floating py-1 col-md-6">
+            <input asp-for="Occupancy" class="form-control border shadow" />
+            <label asp-for="Occupancy" class="ms-2"></label>
+            <span asp-validation-for="Occupancy" class="text-danger"></span>
+          </div>
+          <div class="form-floating py-1 col-md-6">
+            <input asp-for="Desc" class="form-control border shadow" />
+            <label asp-for="Desc" class="ms-2"></label>
+            <span asp-validation-for="Desc" class="text-danger"></span>
+          </div>
+          <div class="form-floating py-1 col-md-6">
+            <input asp-for="ImageUrl" hidden class="form-control border shadow" />
+            <input asp-for="Image" class="form-control border shadow" />
+            <label asp-for="ImageUrl" class="ms-2"></label>
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 d-flex justify-content-center">
+        <img src="@Model.ImageUrl"
+          style="border-radius: 5px; border:1px solid black; max-width: 100%;  max-height: 300px; " />
+      </div>
+
+      <div class="col-12 mt-2">
+        <div class="row">
+          <div class="col-6 col-md-3">
+            <button type="submit" class="btn btn-success w-100">
+              <i class="bi bi-check-circle"></i> Save
+            </button>
+          </div>
+          <div class="col-6 col-md-3">
+            <a asp-controller="Villa" asp-action="Index" type="submit" class="btn btn-danger w-100">
+              <i class="bi bi-x-circle"></i>
+              Cancel
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
